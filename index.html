@@ -264,6 +264,28 @@ label{font-size:.82rem;font-weight:600;color:var(--text2);display:block;margin-b
 .cb-mode .expiry-soon::before{content:'!! '}
 .cb-mode .expiry-expired::before{content:'XX '}
 
+/* ===== HAMBURGER MENU ===== */
+.hamburger-btn{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;border-radius:6px;transition:background var(--transition)}
+.hamburger-btn:hover{background:var(--surface2)}
+.hamburger-btn span{display:block;width:22px;height:2.5px;background:var(--text);border-radius:2px;transition:all .3s ease}
+.hamburger-btn.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger-btn.active span:nth-child(2){opacity:0}
+.hamburger-btn.active span:nth-child(3){transform:rotate(-45deg) translate(6px,-6px)}
+
+.mobile-menu{display:none;position:fixed;top:0;right:-280px;width:280px;height:100%;background:var(--surface);border-left:1px solid var(--border);z-index:1500;transition:right .3s ease;overflow-y:auto;box-shadow:-4px 0 20px rgba(0,0,0,.15);flex-direction:column}
+.mobile-menu.active{right:0}
+.mobile-menu-header{padding:1rem 1.25rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.mobile-menu-header h3{font-size:1rem;font-weight:700;color:var(--text)}
+.mobile-menu-close{background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--text2);padding:4px 8px;border-radius:6px;transition:all var(--transition)}
+.mobile-menu-close:hover{color:var(--text);background:var(--surface2)}
+.mobile-menu-item{display:flex;align-items:center;gap:.75rem;padding:.85rem 1.25rem;border:none;background:none;color:var(--text2);cursor:pointer;text-align:left;font-size:.9rem;font-weight:500;font-family:var(--font);width:100%;border-bottom:1px solid var(--border);transition:all var(--transition)}
+.mobile-menu-item:last-child{border-bottom:none}
+.mobile-menu-item:hover{background:var(--surface2);color:var(--text)}
+.mobile-menu-item.active{background:var(--primary-bg);color:var(--primary);font-weight:700}
+.mobile-menu-item .menu-icon{font-size:1.1rem;width:24px;text-align:center}
+.mobile-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:1400;opacity:0;transition:opacity .3s ease}
+.mobile-overlay.active{display:block;opacity:1}
+
 /* ===== ANIMATIONS ===== */
 @keyframes slideIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -278,8 +300,9 @@ label{font-size:.82rem;font-weight:600;color:var(--text2);display:block;margin-b
   .app-header{padding:.6rem 1rem}
   .app-header h1{font-size:1.05rem}
   .container{padding:.75rem}
-  .nav-tabs{gap:.15rem;padding:3px}
-  .nav-tab{padding:.45rem .25rem;font-size:.72rem}
+  .hamburger-btn{display:flex}
+  .nav-tabs{display:none}
+  .header-actions #currencySelect{display:none}
   .planner-grid{grid-template-columns:repeat(2,1fr)}
   .recipe-grid{grid-template-columns:1fr}
   .summary-grid{grid-template-columns:repeat(2,1fr)}
@@ -366,8 +389,28 @@ label{font-size:.82rem;font-weight:600;color:var(--text2);display:block;margin-b
     </select>
     <button class="btn-icon" id="colorBlindBtn" title="Color blind mode" aria-label="Toggle color blind mode">&#128065;</button>
     <button class="btn-icon" id="darkModeBtn" title="Toggle dark mode" aria-label="Toggle dark mode">&#127769;</button>
+    <button class="hamburger-btn" id="hamburgerBtn" title="Menu" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
+
+<!-- ===== MOBILE SLIDE-OUT MENU ===== -->
+<div class="mobile-overlay" id="mobileOverlay"></div>
+<nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
+  <div class="mobile-menu-header">
+    <h3>&#127858; Menu</h3>
+    <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&times;</button>
+  </div>
+  <button class="mobile-menu-item active" data-tab="planner"><span class="menu-icon">&#128197;</span> Planner</button>
+  <button class="mobile-menu-item" data-tab="recipes"><span class="menu-icon">&#127859;</span> Recipes</button>
+  <button class="mobile-menu-item" data-tab="grocery"><span class="menu-icon">&#128722;</span> Grocery</button>
+  <button class="mobile-menu-item" data-tab="inventory"><span class="menu-icon">&#129482;</span> Inventory</button>
+  <button class="mobile-menu-item" data-tab="dashboard"><span class="menu-icon">&#128202;</span> Dashboard</button>
+  <button class="mobile-menu-item" data-tab="health"><span class="menu-icon">&#128154;</span> Health</button>
+  <button class="mobile-menu-item" data-tab="guide"><span class="menu-icon">&#128218;</span> Guide</button>
+  <button class="mobile-menu-item" data-tab="settings"><span class="menu-icon">&#9881;</span> Settings</button>
+</nav>
 
 <!-- ===== NAVIGATION ===== -->
 <div class="container">
@@ -2433,23 +2476,62 @@ function saveState() {
 }
 
 // ===== NAVIGATION =====
+function switchToTab(tabName) {
+  // Update desktop tabs
+  document.querySelectorAll('.nav-tab').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+  const desktopTab = document.querySelector(`.nav-tab[data-tab="${tabName}"]`);
+  if (desktopTab) { desktopTab.classList.add('active'); desktopTab.setAttribute('aria-selected','true'); }
+
+  // Update mobile menu items
+  document.querySelectorAll('.mobile-menu-item').forEach(m => m.classList.remove('active'));
+  const mobileItem = document.querySelector(`.mobile-menu-item[data-tab="${tabName}"]`);
+  if (mobileItem) mobileItem.classList.add('active');
+
+  // Switch view
+  document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
+  document.getElementById(tabName).classList.add('active');
+
+  // Render tab content
+  if (tabName === 'grocery') renderGroceryList();
+  if (tabName === 'dashboard') renderDashboard();
+  if (tabName === 'inventory') renderInventory();
+  if (tabName === 'health') renderHealthProfile();
+  if (tabName === 'settings') renderSettings();
+  if (tabName === 'recipes') renderRecipes();
+}
+
+function closeMobileMenu() {
+  document.getElementById('hamburgerBtn').classList.remove('active');
+  document.getElementById('mobileMenu').classList.remove('active');
+  document.getElementById('mobileOverlay').classList.remove('active');
+}
+
 function setupNavigation() {
+  // Desktop tabs
   document.querySelectorAll('.nav-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('.nav-tab').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
-      document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
-      tab.classList.add('active');
-      tab.setAttribute('aria-selected','true');
-      const target = tab.dataset.tab;
-      document.getElementById(target).classList.add('active');
-      if (target === 'grocery') renderGroceryList();
-      if (target === 'dashboard') renderDashboard();
-      if (target === 'inventory') renderInventory();
-      if (target === 'health') renderHealthProfile();
-      if (target === 'settings') renderSettings();
-      if (target === 'recipes') renderRecipes();
+    tab.addEventListener('click', () => switchToTab(tab.dataset.tab));
+  });
+
+  // Mobile menu items
+  document.querySelectorAll('.mobile-menu-item').forEach(item => {
+    item.addEventListener('click', () => {
+      switchToTab(item.dataset.tab);
+      closeMobileMenu();
     });
   });
+
+  // Hamburger button
+  document.getElementById('hamburgerBtn').addEventListener('click', () => {
+    document.getElementById('hamburgerBtn').classList.toggle('active');
+    document.getElementById('mobileMenu').classList.toggle('active');
+    document.getElementById('mobileOverlay').classList.toggle('active');
+  });
+
+  // Close button inside mobile menu
+  document.getElementById('mobileMenuClose').addEventListener('click', closeMobileMenu);
+
+  // Overlay click to close
+  document.getElementById('mobileOverlay').addEventListener('click', closeMobileMenu);
 }
 
 function setupTagToggles() {
@@ -4084,10 +4166,6 @@ function createBanner() {
   div.innerHTML = '<h4></h4><p></p>';
   document.body.appendChild(div);
   return div;
-}
-
-function switchToTab(tab) {
-  document.querySelector(`.nav-tab[data-tab="${tab}"]`).click();
 }
 
 // ===== RENDER ALL =====
