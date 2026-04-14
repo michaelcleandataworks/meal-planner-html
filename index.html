@@ -272,8 +272,8 @@ label{font-size:.82rem;font-weight:600;color:var(--text2);display:block;margin-b
 .hamburger-btn.active span:nth-child(2){opacity:0}
 .hamburger-btn.active span:nth-child(3){transform:rotate(-45deg) translate(6px,-6px)}
 
-.mobile-menu{display:none;position:fixed;top:0;right:-280px;width:280px;height:100%;background:var(--surface);border-left:1px solid var(--border);z-index:1500;transition:right .3s ease;overflow-y:auto;box-shadow:-4px 0 20px rgba(0,0,0,.15);flex-direction:column}
-.mobile-menu.active{right:0}
+.mobile-menu{display:flex;flex-direction:column;position:fixed;top:0;right:0;width:280px;height:100vh;background:var(--surface);border-left:1px solid var(--border);z-index:1500;overflow-y:auto;box-shadow:-4px 0 20px rgba(0,0,0,.15);visibility:hidden;opacity:0;transition:visibility 0s .3s,opacity .3s}
+.mobile-menu.open{visibility:visible;opacity:1;transition:visibility 0s,opacity .3s}
 .mobile-menu-header{padding:1rem 1.25rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
 .mobile-menu-header h3{font-size:1rem;font-weight:700;color:var(--text)}
 .mobile-menu-close{background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--text2);padding:4px 8px;border-radius:6px;transition:all var(--transition)}
@@ -2500,10 +2500,25 @@ function switchToTab(tabName) {
   if (tabName === 'recipes') renderRecipes();
 }
 
+function openMobileMenu() {
+  const menu = document.getElementById('mobileMenu');
+  const overlay = document.getElementById('mobileOverlay');
+  document.getElementById('hamburgerBtn').classList.add('active');
+  menu.classList.add('open');
+  overlay.classList.add('active');
+  // Force style for browsers that have specificity issues
+  menu.style.visibility = 'visible';
+  menu.style.opacity = '1';
+}
+
 function closeMobileMenu() {
+  const menu = document.getElementById('mobileMenu');
+  const overlay = document.getElementById('mobileOverlay');
   document.getElementById('hamburgerBtn').classList.remove('active');
-  document.getElementById('mobileMenu').classList.remove('active');
-  document.getElementById('mobileOverlay').classList.remove('active');
+  menu.classList.remove('open');
+  overlay.classList.remove('active');
+  menu.style.visibility = '';
+  menu.style.opacity = '';
 }
 
 function setupNavigation() {
@@ -2522,9 +2537,9 @@ function setupNavigation() {
 
   // Hamburger button
   document.getElementById('hamburgerBtn').addEventListener('click', () => {
-    document.getElementById('hamburgerBtn').classList.toggle('active');
-    document.getElementById('mobileMenu').classList.toggle('active');
-    document.getElementById('mobileOverlay').classList.toggle('active');
+    const isOpen = document.getElementById('hamburgerBtn').classList.contains('active');
+    if (isOpen) closeMobileMenu();
+    else openMobileMenu();
   });
 
   // Close button inside mobile menu
