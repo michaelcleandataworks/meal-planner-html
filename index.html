@@ -142,6 +142,9 @@ label{font-size:.82rem;font-weight:600;color:var(--text2);display:block;margin-b
 .meal-slot-meta{font-size:.65rem;color:var(--text3);margin-top:.15rem}
 .meal-slot-remove{position:absolute;top:2px;right:4px;width:18px;height:18px;border:none;background:var(--red-bg);color:var(--red);border-radius:50%;font-size:.7rem;cursor:pointer;display:none;align-items:center;justify-content:center;line-height:1}
 .meal-slot.filled:hover .meal-slot-remove{display:flex}
+.kid-meal-slot{border-left:3px solid #f59e0b;background:rgba(245,158,11,.06)}
+.kid-meal-slot.filled{border-color:#f59e0b;background:rgba(245,158,11,.12)}
+.kid-meal-divider{font-size:.68rem;font-weight:700;color:#f59e0b;padding:.35rem .5rem;text-align:center;border-top:1px dashed rgba(245,158,11,.4);margin-top:.2rem}
 .planner-actions{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
 
 /* ===== RECIPE GRID ===== */
@@ -476,6 +479,7 @@ label{font-size:.82rem;font-weight:600;color:var(--text2);display:block;margin-b
         <option value="dairy-free">Dairy-Free</option>
         <option value="nut-free">Nut-Free</option>
         <option value="diabetic-friendly">Diabetic-Friendly</option>
+        <option value="kid-friendly">Kid-Friendly</option>
       </select>
       <select id="recipeCuisine" aria-label="Filter by cuisine">
         <option value="">All Cuisines</option>
@@ -673,7 +677,7 @@ label{font-size:.82rem;font-weight:600;color:var(--text2);display:block;margin-b
         </div>
 
         <!-- PLANNER TAB -->
-        <div class="guide-section" data-keywords="planner plan week meal add drag drop assign slot breakfast lunch dinner snack auto fill populate cuisine copy clear export pdf">
+        <div class="guide-section" data-keywords="planner plan week meal add drag drop assign slot breakfast lunch dinner snack auto fill populate cuisine copy clear export pdf kid child">
           <div class="guide-section-header" onclick="toggleGuideSection(this)">
             <span class="guide-chevron">&#9654;</span>
             &#128197; Planner Tab
@@ -685,11 +689,27 @@ label{font-size:.82rem;font-weight:600;color:var(--text2);display:block;margin-b
             <div class="guide-tip"><span class="guide-tip-icon">&#128203;</span><div class="guide-tip-text"><strong>Copy Week</strong> &mdash; Copies the current week's plan to the next week. Great for meal prep routines.</div></div>
             <div class="guide-tip"><span class="guide-tip-icon">&#128196;</span><div class="guide-tip-text"><strong>Export PDF</strong> &mdash; Download your weekly plan as a printable PDF. Three export types: meal plan, grocery list, or full report.</div></div>
             <div class="guide-tip"><span class="guide-tip-icon">&#128465;</span><div class="guide-tip-text"><strong>Remove a meal</strong> &mdash; Click the &times; button on any meal card in the planner grid to remove it from that slot.</div></div>
+            <div class="guide-tip"><span class="guide-tip-icon">&#128118;</span><div class="guide-tip-text"><strong>Kid meal rows</strong> <span class="guide-badge guide-badge-new">NEW</span> &mdash; Enable in Settings to add separate kid meal slots (Kid Breakfast, Kid Lunch, etc.) below each day's adult meals. See the <strong>Kid Meals</strong> section below for details.</div></div>
+          </div>
+        </div>
+
+        <!-- KID MEALS -->
+        <div class="guide-section" data-keywords="kid child children family friendly baby toddler picky eater kid breakfast kid lunch kid dinner kid snack separate meals">
+          <div class="guide-section-header" onclick="toggleGuideSection(this)">
+            <span class="guide-chevron">&#9654;</span>
+            &#128118; Kid Meals
+          </div>
+          <div class="guide-section-body">
+            <div class="guide-tip"><span class="guide-tip-icon">&#128118;</span><div class="guide-tip-text"><strong>Enable kid meal rows</strong> <span class="guide-badge guide-badge-new">NEW</span> &mdash; Go to <strong>Settings &gt; Kid Meals</strong> and flip the toggle on. This adds 4 extra meal slots per day: Kid Breakfast, Kid Lunch, Kid Dinner, and Kid Snack &mdash; shown below the adult meals with an orange highlight.</div></div>
+            <div class="guide-tip"><span class="guide-tip-icon">&#127860;</span><div class="guide-tip-text"><strong>Kid-friendly recipes</strong> &mdash; Over 650 recipes are auto-tagged as kid-friendly based on ingredients kids typically enjoy (pasta, cheese, chicken, pancakes, etc.) and excluding spicy ingredients. Filter recipes by "kid-friendly" in the Recipes tab.</div></div>
+            <div class="guide-tip"><span class="guide-tip-icon">&#9889;</span><div class="guide-tip-text"><strong>Auto-Fill prefers kid recipes</strong> &mdash; When you use Auto-Fill, kid meal slots automatically prefer kid-friendly tagged recipes so your little ones get meals they'll actually eat.</div></div>
+            <div class="guide-tip"><span class="guide-tip-icon">&#128722;</span><div class="guide-tip-text"><strong>Grocery list included</strong> &mdash; Kid meal ingredients are automatically added to your grocery list and budget tracking &mdash; no extra work needed.</div></div>
+            <div class="guide-tip"><span class="guide-tip-icon">&#128260;</span><div class="guide-tip-text"><strong>Toggle anytime</strong> &mdash; Turning kid meals off hides the rows but keeps the data. Turn it back on and your kid meals are still there.</div></div>
           </div>
         </div>
 
         <!-- RECIPES TAB -->
-        <div class="guide-section" data-keywords="recipe search filter browse cuisine dietary vegetarian vegan gluten keto personal custom add create">
+        <div class="guide-section" data-keywords="recipe search filter browse cuisine dietary vegetarian vegan gluten keto personal custom add create favorite star kid-friendly">
           <div class="guide-section-header" onclick="toggleGuideSection(this)">
             <span class="guide-chevron">&#9654;</span>
             &#127859; Recipes Tab
@@ -699,11 +719,13 @@ label{font-size:.82rem;font-weight:600;color:var(--text2);display:block;margin-b
             <div class="guide-tip"><span class="guide-tip-icon">&#127860;</span><div class="guide-tip-text"><strong>Filter by cuisine &amp; diet</strong> &mdash; Use the dropdown filters to narrow recipes by cuisine type (Italian, Mexican, Asian, etc.) or dietary need (vegetarian, vegan, gluten-free, keto, etc.).</div></div>
             <div class="guide-tip"><span class="guide-tip-icon">&#10133;</span><div class="guide-tip-text"><strong>Add your own recipes</strong> &mdash; Click <strong>+ Add Recipe</strong> to create custom recipes with ingredients, prep time, servings, and dietary tags. They appear alongside the built-in 1000+ recipes.</div></div>
             <div class="guide-tip"><span class="guide-tip-icon">&#128203;</span><div class="guide-tip-text"><strong>Recipe cards</strong> &mdash; Each card shows cook time, servings, estimated cost, and dietary badges. Click to view full details or assign to a meal slot.</div></div>
+            <div class="guide-tip"><span class="guide-tip-icon">&#11088;</span><div class="guide-tip-text"><strong>Favorites</strong> &mdash; Click the star &#9734; on any recipe card to mark it as a favorite. Use the <strong>Favorites</strong> checkbox above the recipe grid to filter and show only your starred recipes.</div></div>
+            <div class="guide-tip"><span class="guide-tip-icon">&#128118;</span><div class="guide-tip-text"><strong>Kid-friendly filter</strong> <span class="guide-badge guide-badge-new">NEW</span> &mdash; Select "kid-friendly" from the dietary filter to show 650+ recipes tagged as safe and appealing for kids &mdash; no spicy ingredients, simple flavours kids love.</div></div>
           </div>
         </div>
 
         <!-- GROCERY TAB -->
-        <div class="guide-section" data-keywords="grocery shopping list buy check mark remove clear item ingredient consolidate affiliate link shop amazon instacart">
+        <div class="guide-section" data-keywords="grocery shopping list buy check mark remove clear item ingredient consolidate affiliate link shop amazon instacart equipment tools cooking kitchen">
           <div class="guide-section-header" onclick="toggleGuideSection(this)">
             <span class="guide-chevron">&#9654;</span>
             &#128722; Grocery Tab
@@ -715,6 +737,7 @@ label{font-size:.82rem;font-weight:600;color:var(--text2);display:block;margin-b
             <div class="guide-tip"><span class="guide-tip-icon">&#129482;</span><div class="guide-tip-text"><strong>Mark What You Have</strong> <span class="guide-badge guide-badge-new">NEW</span> &mdash; Click this button to open your inventory and quickly mark items you already own. Matching items show a count so you can skip buying them.</div></div>
             <div class="guide-tip"><span class="guide-tip-icon">&#128722;</span><div class="guide-tip-text"><strong>Shopping links</strong> &mdash; Click the store buttons (Amazon, Instacart) next to items to open them in your preferred store. Links are region-aware based on your currency setting.</div></div>
             <div class="guide-tip"><span class="guide-tip-icon">&#128465;</span><div class="guide-tip-text"><strong>Clear All</strong> &mdash; Removes all grocery items at once. You'll see a confirmation dialog first to prevent accidental clears.</div></div>
+            <div class="guide-tip"><span class="guide-tip-icon">&#129520;</span><div class="guide-tip-text"><strong>Equipment Needed This Week</strong> <span class="guide-badge guide-badge-new">NEW</span> &mdash; At the top of the grocery tab, you'll see cooking tools auto-detected from your planned recipes (frying pan, blender, baking sheet, etc.). Click any to shop for it online.</div></div>
           </div>
         </div>
 
@@ -771,11 +794,12 @@ label{font-size:.82rem;font-weight:600;color:var(--text2);display:block;margin-b
             <div class="guide-tip"><span class="guide-tip-icon">&#128064;</span><div class="guide-tip-text"><strong>Accessibility</strong> &mdash; High contrast mode, four color-blind presets (deuteranopia, protanopia, tritanopia, monochromacy), and adjustable font size.</div></div>
             <div class="guide-tip"><span class="guide-tip-icon">&#128276;</span><div class="guide-tip-text"><strong>Reminders</strong> &mdash; Set planning and shopping reminders with custom day and time. Uses browser notifications (with in-app fallback).</div></div>
             <div class="guide-tip"><span class="guide-tip-icon">&#128190;</span><div class="guide-tip-text"><strong>Backup &amp; restore</strong> &mdash; Export your data as JSON backup or CSV. Import to restore on a new device. <strong>Clear All Data</strong> resets everything (with confirmation).</div></div>
+            <div class="guide-tip"><span class="guide-tip-icon">&#128118;</span><div class="guide-tip-text"><strong>Kid Meals</strong> <span class="guide-badge guide-badge-new">NEW</span> &mdash; Toggle on separate kid meal rows for each day in the planner. Kid-friendly recipes are auto-suggested when using Auto-Fill.</div></div>
           </div>
         </div>
 
         <!-- TIPS & TRICKS -->
-        <div class="guide-section" data-keywords="tips tricks pro shortcut workflow efficient hack best practice">
+        <div class="guide-section" data-keywords="tips tricks pro shortcut workflow efficient hack best practice mobile phone tablet">
           <div class="guide-section-header" onclick="toggleGuideSection(this)">
             <span class="guide-chevron">&#9654;</span>
             &#128161; Tips &amp; Tricks
@@ -787,6 +811,8 @@ label{font-size:.82rem;font-weight:600;color:var(--text2);display:block;margin-b
             <div class="guide-tip"><span class="guide-tip-icon">&#128260;</span><div class="guide-tip-text"><strong>Copy &amp; tweak</strong> &mdash; Found a week you love? Use Copy Week to duplicate it, then make small changes the following week for variety.</div></div>
             <div class="guide-tip"><span class="guide-tip-icon">&#128100;</span><div class="guide-tip-text"><strong>Cooking for one?</strong> &mdash; Look for recipes marked "1 srv" or "2 srv" to avoid waste and keep costs down.</div></div>
             <div class="guide-tip"><span class="guide-tip-icon">&#128190;</span><div class="guide-tip-text"><strong>Back up regularly</strong> &mdash; Go to Settings &gt; Data Management &gt; Backup (JSON) every so often. If you clear your browser data, your plan will be lost without a backup.</div></div>
+            <div class="guide-tip"><span class="guide-tip-icon">&#128241;</span><div class="guide-tip-text"><strong>Works on mobile</strong> &mdash; On smaller screens, use the &#9776; hamburger menu in the top-right corner to switch between tabs. The entire app is fully responsive.</div></div>
+            <div class="guide-tip"><span class="guide-tip-icon">&#128118;</span><div class="guide-tip-text"><strong>Planning for the family?</strong> &mdash; Add family members in Settings, then enable Kid Meals to give your children their own meal slots. Auto-Fill picks kid-friendly recipes automatically.</div></div>
           </div>
         </div>
 
@@ -893,6 +919,15 @@ label{font-size:.82rem;font-weight:600;color:var(--text2);display:block;margin-b
         <h4>Family Members</h4>
         <div id="familyList"></div>
         <button class="btn btn-sm btn-primary" style="margin-top:.5rem" onclick="openAddFamilyModal()">+ Add Member</button>
+      </div>
+
+      <div class="settings-section">
+        <h4>&#128118; Kid Meals</h4>
+        <p style="font-size:.78rem;color:var(--text3);margin-bottom:.5rem">Add separate kid meal rows (Kid Breakfast, Kid Lunch, Kid Dinner, Kid Snack) to each day in the planner. Auto-fill prefers kid-friendly recipes for these slots.</p>
+        <div class="settings-row">
+          <label>Enable Kid Meal Rows</label>
+          <label class="toggle"><input type="checkbox" id="settingsKidMeals" onchange="toggleKidMeals()"><span class="toggle-slider"></span></label>
+        </div>
       </div>
 
       <div class="settings-section">
@@ -1161,6 +1196,10 @@ label{font-size:.82rem;font-weight:600;color:var(--text2);display:block;margin-b
         <label class="checkbox-label"><input type="radio" name="apDiet" value="no" style="width:auto"> No, show all recipes</label>
       </div>
       <div id="apDietInfo" style="font-size:.75rem;color:var(--text3);margin-top:.3rem"></div>
+    </div>
+    <div class="form-group" style="margin-top:.75rem">
+      <label class="checkbox-label" style="min-width:auto"><input type="checkbox" id="apKidFriendly" style="width:auto"> &#128118; Kid-Friendly meals only</label>
+      <div style="font-size:.72rem;color:var(--text3);margin-top:.2rem">Filters for simple, familiar meals kids love — no spicy or complex dishes</div>
     </div>
     <div class="form-group" style="margin-top:.75rem">
       <label>Existing Meals</label>
@@ -2240,6 +2279,10 @@ const RECIPE_DATABASE = [
 // ===== CONSTANTS =====
 const DAYS = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
 const MEALS = ['Breakfast','Lunch','Dinner','Snack'];
+const KID_MEALS = ['Kid Breakfast','Kid Lunch','Kid Dinner','Kid Snack'];
+function getActiveMeals() { return state.settings.kidMealsEnabled ? [...MEALS, ...KID_MEALS] : MEALS; }
+function isKidMeal(meal) { return KID_MEALS.includes(meal); }
+function kidMealCategory(meal) { return meal.replace('Kid ','').toLowerCase(); }
 const GROCERY_CATEGORIES = {
   'Produce': ['lettuce','tomato','onion','garlic','pepper','cucumber','carrot','broccoli','spinach','kale','avocado','lemon','lime','potato','sweet potato','mushroom','zucchini','celery','corn','green beans','peas','cabbage','cauliflower','beet','radish','ginger','cilantro','parsley','basil','mint','dill','thyme','rosemary','oregano','chives','scallion','spring onion','jalapeno','banana','apple','orange','berry','berries','blueberry','blueberries','strawberry','strawberries','raspberry','raspberries','mango','pineapple','peach','pear','grape','grapes','watermelon','melon','kiwi','cherry','cherries','plum','fig','date','dates','coconut','papaya','pomegranate','eggplant','squash','asparagus','artichoke','bok choy','bean sprouts','edamame','arugula','romaine','watercress','endive','fennel','leek','shallot','turnip','parsnip','jicama','plantain','okra','brussels sprout','brussels sprouts','snap peas','snow peas'],
   'Meat & Protein': ['chicken','beef','pork','turkey','lamb','salmon','tuna','shrimp','cod','tilapia','bacon','sausage','ham','steak','ground beef','ground turkey','tofu','tempeh','seitan','eggs','egg','fish','crab','lobster','scallop','mussels','sardines','anchovy','anchovies','duck','veal','bison','venison','chorizo','prosciutto','pepperoni','salami'],
@@ -2387,7 +2430,8 @@ let state = {
     reminderTime: '10:00',
     shopReminder: false,
     shopDay: '6',
-    shopTime: '14:00'
+    shopTime: '14:00',
+    kidMealsEnabled: false
   },
   weeklyBudget: 80
 };
@@ -2617,6 +2661,20 @@ function setFontSize(val) {
   saveState();
 }
 
+function toggleKidMeals() {
+  state.settings.kidMealsEnabled = document.getElementById('settingsKidMeals').checked;
+  // Initialize kid meal slots in current week if enabling
+  if (state.settings.kidMealsEnabled) {
+    const week = getWeekData();
+    DAYS.forEach(d => {
+      KID_MEALS.forEach(m => { if (week[d][m] === undefined) week[d][m] = null; });
+    });
+  }
+  saveState();
+  renderPlanner();
+  showToast(state.settings.kidMealsEnabled ? 'Kid meal rows enabled! 👶' : 'Kid meal rows hidden.');
+}
+
 function changeCurrency(val) {
   state.settings.currency = val;
   document.getElementById('currencySelect').value = val;
@@ -2660,6 +2718,9 @@ function renderSettings() {
   // Planner name
   document.getElementById('settingsPlannerName').value = state.plannerName || '';
 
+  // Kid meals toggle
+  document.getElementById('settingsKidMeals').checked = s.kidMealsEnabled || false;
+
   renderFamilyList();
 }
 
@@ -2690,7 +2751,13 @@ function getWeekData() {
   const key = weekKey(state.currentWeekStart);
   if (!state.weeks[key]) {
     state.weeks[key] = {};
-    DAYS.forEach(d => { state.weeks[key][d] = {}; MEALS.forEach(m => { state.weeks[key][d][m] = null; }); });
+    DAYS.forEach(d => { state.weeks[key][d] = {}; getActiveMeals().forEach(m => { state.weeks[key][d][m] = null; }); });
+  } else if (state.settings.kidMealsEnabled) {
+    // Ensure kid meal slots exist when toggled on for existing weeks
+    DAYS.forEach(d => {
+      if (!state.weeks[key][d]) state.weeks[key][d] = {};
+      KID_MEALS.forEach(m => { if (state.weeks[key][d][m] === undefined) state.weeks[key][d][m] = null; });
+    });
   }
   return state.weeks[key];
 }
@@ -2721,7 +2788,7 @@ function clearWeek() {
   if (!confirm('Clear all meals for this week?')) return;
   const key = weekKey(state.currentWeekStart);
   state.weeks[key] = {};
-  DAYS.forEach(d => { state.weeks[key][d] = {}; MEALS.forEach(m => { state.weeks[key][d][m] = null; }); });
+  DAYS.forEach(d => { state.weeks[key][d] = {}; getActiveMeals().forEach(m => { state.weeks[key][d][m] = null; }); });
   saveState();
   renderPlanner();
 }
@@ -2746,17 +2813,26 @@ function renderPlanner() {
     html += `<div class="planner-day">
       <div class="planner-day-header" ${isToday?'style="background:var(--green-bg);color:var(--green)"':''}>${day}<span class="date">${dateStr}</span></div>`;
 
-    MEALS.forEach(meal => {
+    const activeMeals = getActiveMeals();
+    let showedKidDivider = false;
+    activeMeals.forEach(meal => {
       const recipeId = week[day] && week[day][meal];
       const recipe = recipeId ? findRecipe(recipeId) : null;
       const filled = recipe ? 'filled' : '';
+      const isKid = isKidMeal(meal);
 
-      html += `<div class="meal-slot ${filled}" data-day="${day}" data-meal="${meal}"
+      // Show divider before first kid meal
+      if (isKid && !showedKidDivider) {
+        showedKidDivider = true;
+        html += `<div class="kid-meal-divider">&#128118; Kid Meals</div>`;
+      }
+
+      html += `<div class="meal-slot ${filled} ${isKid ? 'kid-meal-slot' : ''}" data-day="${day}" data-meal="${meal}"
         onclick="clickMealSlot('${day}','${meal}')"
         ondragover="event.preventDefault();this.classList.add('drag-over')"
         ondragleave="this.classList.remove('drag-over')"
         ondrop="dropRecipe(event,'${day}','${meal}')">
-        <div class="meal-slot-label">${meal}</div>`;
+        <div class="meal-slot-label">${isKid ? '&#128118; ' + meal : meal}</div>`;
 
       if (recipe) {
         html += `<div class="meal-slot-name">${recipe.name}</div>
@@ -2840,8 +2916,9 @@ function openRecipePickerForSlot(day, meal) {
   if (!day) {
     // Open with first empty slot
     const week = getWeekData();
+    const activeMeals = getActiveMeals();
     for (const d of DAYS) {
-      for (const m of MEALS) {
+      for (const m of activeMeals) {
         if (!week[d] || !week[d][m]) { day = d; meal = m; break; }
       }
       if (day) break;
@@ -2853,8 +2930,8 @@ function openRecipePickerForSlot(day, meal) {
   document.getElementById('pickerTitle').textContent = `Select: ${day} ${meal}`;
   document.getElementById('pickerSearch').value = '';
 
-  // Default category filter based on meal
-  const catMap = {Breakfast:'breakfast',Lunch:'lunch',Dinner:'dinner',Snack:'snack'};
+  // Default category filter based on meal (kid meals map to their parent category)
+  const catMap = {Breakfast:'breakfast',Lunch:'lunch',Dinner:'dinner',Snack:'snack','Kid Breakfast':'breakfast','Kid Lunch':'lunch','Kid Dinner':'dinner','Kid Snack':'snack'};
   document.getElementById('pickerCategory').value = catMap[meal] || '';
 
   renderPickerResults();
@@ -3188,8 +3265,9 @@ function getWeekIngredients() {
   const week = getWeekData();
   const ingredients = {};
 
+  const activeMeals = getActiveMeals();
   DAYS.forEach(day => {
-    MEALS.forEach(meal => {
+    activeMeals.forEach(meal => {
       const recipeId = week[day] && week[day][meal];
       if (!recipeId) return;
       const recipe = findRecipe(recipeId);
@@ -3336,8 +3414,9 @@ function renderGroceryList() {
   // Equipment needed this week — rendered above grocery list
   const weekData = getWeekData();
   const allEquipment = new Map();
+  const activeM = getActiveMeals();
   DAYS.forEach(day => {
-    MEALS.forEach(meal => {
+    activeM.forEach(meal => {
       const rid = weekData[day] && weekData[day][meal];
       if (!rid) return;
       const recipe = findRecipe(rid);
@@ -3527,21 +3606,22 @@ function removeInventoryItem(idx) {
 function renderDashboard() {
   const week = getWeekData();
   let totalMeals = 0, daysCovered = 0, totalCost = 0;
-  const mealTypes = {Breakfast:0,Lunch:0,Dinner:0,Snack:0};
+  const mealTypes = {Breakfast:0,Lunch:0,Dinner:0,Snack:0,'Kid Breakfast':0,'Kid Lunch':0,'Kid Dinner':0,'Kid Snack':0};
   const dietaryCounts = {};
   const dailyCals = [];
   const dailyProtein = [], dailyCarbs = [], dailyFat = [];
+  const activeMeals = getActiveMeals();
 
   DAYS.forEach(day => {
     let hasMeal = false;
     let dayCal = 0, dayP = 0, dayC = 0, dayF = 0;
 
-    MEALS.forEach(meal => {
+    activeMeals.forEach(meal => {
       const id = week[day] && week[day][meal];
       if (id) {
         totalMeals++;
         hasMeal = true;
-        mealTypes[meal]++;
+        mealTypes[meal] = (mealTypes[meal] || 0) + 1;
         const r = findRecipe(id);
         if (r) {
           r.dietary.forEach(d => { dietaryCounts[d] = (dietaryCounts[d] || 0) + 1; });
@@ -3564,7 +3644,7 @@ function renderDashboard() {
 
   // Summary cards
   document.getElementById('dashboardSummary').innerHTML = `
-    <div class="card summary-card"><div class="label">Meals Planned</div><div class="value val-primary">${totalMeals}</div><div class="sub">of ${DAYS.length * MEALS.length} slots</div></div>
+    <div class="card summary-card"><div class="label">Meals Planned</div><div class="value val-primary">${totalMeals}</div><div class="sub">of ${DAYS.length * activeMeals.length} slots</div></div>
     <div class="card summary-card"><div class="label">Days Covered</div><div class="value val-green">${daysCovered}/7</div></div>
     <div class="card summary-card"><div class="label">Total Recipes</div><div class="value val-purple">${allRecipes.length}</div><div class="sub">${state.personalRecipes.length} personal</div></div>
     <div class="card summary-card"><div class="label">Est. Grocery Cost</div><div class="value val-amber">${cs()}${totalCost.toFixed(0)}</div></div>
@@ -3877,6 +3957,7 @@ function generatePDF(type) {
     doc.setFontSize(12);
     doc.text('Weekly Meal Plan', 14, y); y += 7;
 
+    const pdfMeals = getActiveMeals();
     DAYS.forEach(day => {
       if (y > 270) { doc.addPage(); y = 15; }
       doc.setFontSize(10);
@@ -3885,7 +3966,7 @@ function generatePDF(type) {
       doc.setFont(undefined, 'normal');
       doc.setFontSize(9);
 
-      MEALS.forEach(meal => {
+      pdfMeals.forEach(meal => {
         const id = week[day] && week[day][meal];
         const r = id ? findRecipe(id) : null;
         doc.text(`  ${meal}: ${r ? r.name : '—'}`, 14, y); y += 4;
@@ -3940,7 +4021,8 @@ function generatePDF(type) {
   if (type === 'prepcards') {
     // Prep Cards
     const usedRecipes = new Set();
-    DAYS.forEach(day => MEALS.forEach(meal => {
+    const prepMeals = getActiveMeals();
+    DAYS.forEach(day => prepMeals.forEach(meal => {
       const id = week[day] && week[day][meal];
       if (id) usedRecipes.add(id);
     }));
@@ -4009,8 +4091,9 @@ function exportWeekCSV() {
   const week = getWeekData();
   let csv = 'Day,Meal,Recipe,Prep Time,Cook Time,Servings,Calories\n';
 
+  const csvMeals = getActiveMeals();
   DAYS.forEach(day => {
-    MEALS.forEach(meal => {
+    csvMeals.forEach(meal => {
       const id = week[day] && week[day][meal];
       const r = id ? findRecipe(id) : null;
       csv += `${day},${meal},${r ? '"' + r.name.replace(/"/g,'""') + '"' : ''},${r ? r.prepTime : ''},${r ? r.cookTime : ''},${r ? r.servings : ''},${r ? r.calories : ''}\n`;
@@ -4053,7 +4136,7 @@ function importCSV(event) {
 
         if (section === 'meals') {
           const parts = parseCSVLine(line);
-          if (parts.length >= 3 && DAYS.includes(parts[0]) && MEALS.includes(parts[1]) && parts[2]) {
+          if (parts.length >= 3 && DAYS.includes(parts[0]) && [...MEALS, ...KID_MEALS].includes(parts[1]) && parts[2]) {
             const recipe = allRecipes.find(r => r.name === parts[2]);
             if (recipe && week[parts[0]]) week[parts[0]][parts[1]] = recipe.id;
           }
@@ -4184,7 +4267,30 @@ function createBanner() {
 }
 
 // ===== RENDER ALL =====
+// ===== KID-FRIENDLY AUTO-TAGGING =====
+function tagKidFriendlyRecipes() {
+  // Keywords that kids typically enjoy
+  const kidFavorites = ['pasta','pizza','mac','cheese','chicken','nugget','pancake','waffle','scramble','egg','toast','grilled cheese','quesadilla','taco','burger','sandwich','wrap','rice','noodle','soup','meatball','spaghetti','lasagna','french toast','oatmeal','smoothie','muffin','banana','apple','potato','fries','corn','bread','cereal','porridge','fried rice','stir fry','honey','peanut butter','jam','fish stick','fish finger','hot dog','mac and cheese','alfredo','bolognese','ravioli','gnocchi','risotto','pie','casserole','salad'];
+  // Ingredients/flavours kids often dislike
+  const notKidFriendly = ['sriracha','wasabi','habanero','jalapeño','jalapeno','ghost pepper','anchov','liver','organ meat','oyster','raw fish','sashimi','tartare','kimchi','fermented','bitter melon','blue cheese','gorgonzola','curry paste','thai chili','szechuan','sichuan','horseradish','capers','olives','artichoke','brussels sprout','eggplant','tofu','tempeh'];
+
+  allRecipes.forEach(r => {
+    if (r.dietary.includes('kid-friendly')) return; // already tagged
+    const text = (r.name + ' ' + r.ingredients.map(i => i.name).join(' ')).toLowerCase();
+
+    // Must be easy or medium
+    if (r.difficulty === 'hard') return;
+    // Must not have strong/spicy/complex flavours
+    if (notKidFriendly.some(nk => text.includes(nk))) return;
+    // Must match at least one kid-favorite keyword
+    if (kidFavorites.some(kf => text.includes(kf))) {
+      r.dietary.push('kid-friendly');
+    }
+  });
+}
+
 function renderAll() {
+  tagKidFriendlyRecipes();
   // Restore built-in favorites
   if (state.builtInFavorites) {
     Object.keys(state.builtInFavorites).forEach(id => {
@@ -4256,6 +4362,11 @@ function executeAutoPopulate() {
     const filtered = pool.filter(r => state.healthProfile.restrictions.every(rest => r.dietary.includes(rest)));
     if (filtered.length > 0) pool = filtered;
   }
+  // Kid-friendly filter
+  if (document.getElementById('apKidFriendly').checked) {
+    const kidPool = pool.filter(r => r.dietary.includes('kid-friendly'));
+    if (kidPool.length > 0) pool = kidPool;
+  }
 
   // Split by category for appropriate meal slots
   const byCategory = {
@@ -4271,13 +4382,21 @@ function executeAutoPopulate() {
   const usedIds = new Set();
   let filledCount = 0;
 
+  const autoMeals = getActiveMeals();
   selectedDays.forEach(day => {
-    MEALS.forEach(meal => {
+    autoMeals.forEach(meal => {
       const hasExisting = week[day] && week[day][meal];
       if (hasExisting && !overwrite) return;
 
-      const catKey = meal.toLowerCase();
-      const candidates = (byCategory[catKey] || pool).filter(r => !usedIds.has(r.id));
+      const catKey = isKidMeal(meal) ? kidMealCategory(meal) : meal.toLowerCase();
+      let candidates = (byCategory[catKey] || pool).filter(r => !usedIds.has(r.id));
+
+      // For kid meal slots, prefer kid-friendly tagged recipes
+      if (isKidMeal(meal)) {
+        const kidCandidates = candidates.filter(r => r.dietary.includes('kid-friendly'));
+        if (kidCandidates.length > 0) candidates = kidCandidates;
+      }
+
       if (candidates.length === 0) return;
 
       const pick = candidates[Math.floor(Math.random() * candidates.length)];
