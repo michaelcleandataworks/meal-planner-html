@@ -3467,7 +3467,8 @@ function setupBudgetInput() {
 }
 
 function updateBudgetBar() {
-  const budget = state.weeklyBudget ? convertCost(state.weeklyBudget) : 0;
+  // Budget is entered by the user in their display currency — no conversion needed
+  const budget = state.weeklyBudget || 0;
   if (!budget) {
     document.getElementById('budgetStatus').textContent = 'Set a budget above';
     document.getElementById('budgetBarFill').style.width = '0%';
