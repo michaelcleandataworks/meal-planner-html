@@ -725,7 +725,7 @@ label{font-size:.82rem;font-weight:600;color:var(--text2);display:block;margin-b
         </div>
 
         <!-- GROCERY TAB -->
-        <div class="guide-section" data-keywords="grocery shopping list buy check mark remove clear item ingredient consolidate affiliate link shop amazon instacart equipment tools cooking kitchen">
+        <div class="guide-section" data-keywords="grocery shopping list buy check mark remove clear item ingredient consolidate affiliate link shop amazon equipment tools cooking kitchen">
           <div class="guide-section-header" onclick="toggleGuideSection(this)">
             <span class="guide-chevron">&#9654;</span>
             &#128722; Grocery Tab
@@ -735,7 +735,7 @@ label{font-size:.82rem;font-weight:600;color:var(--text2);display:block;margin-b
             <div class="guide-tip"><span class="guide-tip-icon">&#9989;</span><div class="guide-tip-text"><strong>Check off items</strong> &mdash; Tick the checkbox next to each item as you shop. Checked items are remembered even if you leave the tab.</div></div>
             <div class="guide-tip"><span class="guide-tip-icon">&#10060;</span><div class="guide-tip-text"><strong>Remove individual items</strong> <span class="guide-badge guide-badge-new">NEW</span> &mdash; Click the &times; button next to any item to remove it from the list (e.g. you already have it). Removed items reappear if you regenerate the list.</div></div>
             <div class="guide-tip"><span class="guide-tip-icon">&#129482;</span><div class="guide-tip-text"><strong>Mark What You Have</strong> <span class="guide-badge guide-badge-new">NEW</span> &mdash; Click this button to open your inventory and quickly mark items you already own. Matching items show a count so you can skip buying them.</div></div>
-            <div class="guide-tip"><span class="guide-tip-icon">&#128722;</span><div class="guide-tip-text"><strong>Shopping links</strong> &mdash; Click the store buttons (Amazon, Instacart) next to items to open them in your preferred store. Links are region-aware based on your currency setting.</div></div>
+            <div class="guide-tip"><span class="guide-tip-icon">&#128722;</span><div class="guide-tip-text"><strong>Shopping links</strong> &mdash; Click the Amazon button next to items to shop for them online. Links are region-aware based on your currency setting.</div></div>
             <div class="guide-tip"><span class="guide-tip-icon">&#128465;</span><div class="guide-tip-text"><strong>Clear All</strong> &mdash; Removes all grocery items at once. You'll see a confirmation dialog first to prevent accidental clears.</div></div>
             <div class="guide-tip"><span class="guide-tip-icon">&#129520;</span><div class="guide-tip-text"><strong>Equipment Needed This Week</strong> <span class="guide-badge guide-badge-new">NEW</span> &mdash; At the top of the grocery tab, you'll see cooking tools auto-detected from your planned recipes (frying pan, blender, baking sheet, etc.). Click any to shop for it online.</div></div>
           </div>
@@ -1796,18 +1796,18 @@ const CURRENCY_SYMBOLS = {CAD:'CA$',USD:'$',GBP:'\u00a3',EUR:'\u20ac',MXN:'MX$',
 const CURRENCY_RATES = {CAD:1,USD:0.74,GBP:0.58,EUR:0.68,MXN:12.5,CHF:0.65,NOK:7.8,SEK:7.6,DKK:5.1,AUD:1.1,NZD:1.2};
 
 const AFFILIATE_LINKS = {
-  CAD: [{name:'Amazon CA',url:'https://www.amazon.ca/s?k=grocery&tag=mealplanner-20',commission:'2-3%'},{name:'Instacart CA',url:'https://www.instacart.ca/?ref=mealplanner',commission:'5-7%'}],
-  USD: [{name:'Amazon',url:'https://www.amazon.com/s?k=grocery&tag=mealplanner-20',commission:'2-3%'},{name:'Instacart',url:'https://www.instacart.com/?ref=mealplanner',commission:'5-7%'}],
-  GBP: [{name:'Tesco',url:'https://www.tesco.com/groceries/?ref=mealplanner',commission:'2-4%'},{name:'Sainsbury\'s',url:'https://www.sainsburys.co.uk/?ref=mealplanner',commission:'2-3%'},{name:'Ocado',url:'https://www.ocado.com/?ref=mealplanner',commission:'3-5%'}],
-  EUR: [{name:'Amazon EU',url:'https://www.amazon.de/s?k=grocery&tag=mealplanner-20',commission:'2-3%'},{name:'Local Grocery Apps',url:'#',commission:'varies'}],
+  CAD: [{name:'Amazon CA',url:'https://www.amazon.ca/s?k=grocery&tag=mealplanner-20',commission:'2-3%'}],
+  USD: [{name:'Amazon',url:'https://www.amazon.com/s?k=grocery&tag=mealplanner-20',commission:'2-3%'}],
+  GBP: [{name:'Amazon UK',url:'https://www.amazon.co.uk/s?k=grocery&tag=mealplanner-20',commission:'2-3%'}],
+  EUR: [{name:'Amazon EU',url:'https://www.amazon.de/s?k=grocery&tag=mealplanner-20',commission:'2-3%'}],
   MXN: [{name:'Amazon MX',url:'https://www.amazon.com.mx/s?k=grocery&tag=mealplanner-20',commission:'2-3%'}]
 };
 AFFILIATE_LINKS.CHF = AFFILIATE_LINKS.EUR;
 AFFILIATE_LINKS.NOK = AFFILIATE_LINKS.EUR;
 AFFILIATE_LINKS.SEK = AFFILIATE_LINKS.EUR;
 AFFILIATE_LINKS.DKK = AFFILIATE_LINKS.EUR;
-AFFILIATE_LINKS.AUD = [{name:'Woolworths',url:'https://www.woolworths.com.au/?ref=mealplanner',commission:'2-4%'},{name:'Coles',url:'https://www.coles.com.au/?ref=mealplanner',commission:'2-3%'}];
-AFFILIATE_LINKS.NZD = [{name:'Countdown NZ',url:'https://www.countdown.co.nz/?ref=mealplanner',commission:'2-4%'}];
+AFFILIATE_LINKS.AUD = [{name:'Amazon AU',url:'https://www.amazon.com.au/s?k=grocery&tag=mealplanner-20',commission:'2-3%'}];
+AFFILIATE_LINKS.NZD = [{name:'Amazon AU',url:'https://www.amazon.com.au/s?k=grocery&tag=mealplanner-20',commission:'2-3%'}];
 
 // ===== KITCHEN EQUIPMENT DETECTION =====
 const EQUIPMENT_MAP = [
@@ -4021,7 +4021,6 @@ function closeDisclaimerAndGuide() {
 const AFFILIATE_IDS = {
   amazonUS: 'wenks2011-20',
   amazonCA: 'wenks201105-20',
-  instacart: '',      // e.g. 'ref_mealplanner'
   clinicURL: ''       // e.g. 'https://clinic.com/refer?code=YOUR_ID'
 };
 
@@ -4032,8 +4031,6 @@ function getAffiliateURL(baseName, baseUrl, itemName) {
     url = url.replace(/tag=[^&]+/, 'tag=' + AFFILIATE_IDS.amazonCA).replace('mealplanner-20', AFFILIATE_IDS.amazonCA);
   } else if (baseName.includes('Amazon') && AFFILIATE_IDS.amazonUS) {
     url = url.replace(/tag=[^&]+/, 'tag=' + AFFILIATE_IDS.amazonUS).replace('mealplanner-20', AFFILIATE_IDS.amazonUS);
-  } else if (baseName.includes('Instacart') && AFFILIATE_IDS.instacart) {
-    url = url.replace(/ref=[^&]+/, 'ref=' + AFFILIATE_IDS.instacart).replace('ref=mealplanner', 'ref=' + AFFILIATE_IDS.instacart);
   }
   // Insert item name as search term for Amazon/Walmart links
   if (itemName && url.includes('k=grocery')) {
